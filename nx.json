@@ -7,23 +7,17 @@
     ".eslintrc.json": "*"
   },
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "npmScope": "nx-todo",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
-        "accessToken": "YTIzYzBmYjctZWZlOS00NDUzLWJlZjgtMzM0ODY5ZjA0MmI3fHJlYWQtd3JpdGU=",
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "ZjU3MzNkMjEtMTdhZC00ZDBkLThhNzItMjRiMzBmNjE4ZGEwfHJlYWQtd3JpdGU=",
         "canTrackAnalytics": false,
-        "showUsageWarnings": true,
-        "url": "http://localhost"
+        "showUsageWarnings": true
       }
     }
   },
@@ -33,9 +27,7 @@
     },
     "todos-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "todos"
-      ]
+      "implicitDependencies": ["todos"]
     },
     "api": {
       "tags": []
@@ -44,6 +36,61 @@
       "tags": []
     },
     "ui": {
+      "tags": []
+    },
+    "ng-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["ng-app"]
+    },
+    "ng-app": {
+      "tags": []
+    },
+    "shared-utils": {
+      "tags": []
+    },
+    "ng-lib0": {
+      "tags": []
+    },
+    "ng-lib1": {
+      "tags": []
+    },
+    "ng-lib2": {
+      "tags": []
+    },
+    "ng-lib3": {
+      "tags": []
+    },
+    "ng-lib4": {
+      "tags": []
+    },
+    "ng-lib5": {
+      "tags": []
+    },
+    "ng-lib6": {
+      "tags": []
+    },
+    "ng-lib7": {
+      "tags": []
+    },
+    "ng-lib8": {
+      "tags": []
+    },
+    "ng-lib9": {
+      "tags": []
+    },
+    "ng-lib10": {
+      "tags": []
+    },
+    "ng-lib11": {
+      "tags": []
+    },
+    "ng-lib12": {
+      "tags": []
+    },
+    "ng-lib13": {
+      "tags": []
+    },
+    "ng-lib14": {
       "tags": []
     }
   }
