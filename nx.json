@@ -20,9 +20,10 @@
           "test",
           "e2e"
         ],
-        "accessToken": "ZjU3MzNkMjEtMTdhZC00ZDBkLThhNzItMjRiMzBmNjE4ZGEwfHJlYWQtd3JpdGU=",
+        "accessToken": "YTIzYzBmYjctZWZlOS00NDUzLWJlZjgtMzM0ODY5ZjA0MmI3fHJlYWQtd3JpdGU=",
         "canTrackAnalytics": false,
-        "showUsageWarnings": true
+        "showUsageWarnings": true,
+        "url": "http://localhost"
       }
     }
   },
