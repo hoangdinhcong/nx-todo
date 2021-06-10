@@ -9,7 +9,7 @@
   "affected": {
     "defaultBase": "master"
   },
-  "npmScope": "myorg",
+  "npmScope": "nx-todo",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -20,10 +20,9 @@
           "test",
           "e2e"
         ],
-        "accessToken": "YTIzYzBmYjctZWZlOS00NDUzLWJlZjgtMzM0ODY5ZjA0MmI3fHJlYWQtd3JpdGU=",
+        "accessToken": "ZjU3MzNkMjEtMTdhZC00ZDBkLThhNzItMjRiMzBmNjE4ZGEwfHJlYWQtd3JpdGU=",
         "canTrackAnalytics": false,
-        "showUsageWarnings": true,
-        "url": "http://localhost"
+        "showUsageWarnings": true
       }
     }
   },
