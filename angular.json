@@ -25,7 +25,8 @@
     "@nrwl/angular:library": {
       "style": "css",
       "linter": "eslint",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "strict": false
     },
     "@nrwl/angular:component": {
       "style": "css"
@@ -239,6 +240,777 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+          }
+        }
+      }
+    },
+    "ng-app": {
+      "projectType": "application",
+      "root": "apps/ng-app",
+      "sourceRoot": "apps/ng-app/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/ng-app",
+            "index": "apps/ng-app/src/index.html",
+            "main": "apps/ng-app/src/main.ts",
+            "polyfills": "apps/ng-app/src/polyfills.ts",
+            "tsConfig": "apps/ng-app/tsconfig.app.json",
+            "assets": ["apps/ng-app/src/favicon.ico", "apps/ng-app/src/assets"],
+            "styles": ["apps/ng-app/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/ng-app/src/environments/environment.ts",
+                  "with": "apps/ng-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "ng-app:build:production"
+            },
+            "development": {
+              "browserTarget": "ng-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ng-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/ng-app/src/**/*.ts",
+              "apps/ng-app/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/ng-app"],
+          "options": {
+            "jestConfig": "apps/ng-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ng-app-e2e": {
+      "root": "apps/ng-app-e2e",
+      "sourceRoot": "apps/ng-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ng-app-e2e/cypress.json",
+            "tsConfig": "apps/ng-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ng-app:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ng-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/ng-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "shared-utils": {
+      "projectType": "library",
+      "root": "libs/shared-utils",
+      "sourceRoot": "libs/shared-utils/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/shared-utils"],
+          "options": {
+            "project": "libs/shared-utils/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/shared-utils/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/shared-utils/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared-utils"],
+          "options": {
+            "jestConfig": "libs/shared-utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared-utils/src/**/*.ts",
+              "libs/shared-utils/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib0": {
+      "projectType": "library",
+      "root": "libs/ng/lib0",
+      "sourceRoot": "libs/ng/lib0/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib0"],
+          "options": {
+            "project": "libs/ng/lib0/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib0/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib0/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib0"],
+          "options": {
+            "jestConfig": "libs/ng/lib0/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib0/src/**/*.ts",
+              "libs/ng/lib0/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib1": {
+      "projectType": "library",
+      "root": "libs/ng/lib1",
+      "sourceRoot": "libs/ng/lib1/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib1"],
+          "options": {
+            "project": "libs/ng/lib1/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib1/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib1/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib1"],
+          "options": {
+            "jestConfig": "libs/ng/lib1/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib1/src/**/*.ts",
+              "libs/ng/lib1/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib2": {
+      "projectType": "library",
+      "root": "libs/ng/lib2",
+      "sourceRoot": "libs/ng/lib2/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib2"],
+          "options": {
+            "project": "libs/ng/lib2/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib2/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib2/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib2"],
+          "options": {
+            "jestConfig": "libs/ng/lib2/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib2/src/**/*.ts",
+              "libs/ng/lib2/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib3": {
+      "projectType": "library",
+      "root": "libs/ng/lib3",
+      "sourceRoot": "libs/ng/lib3/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib3"],
+          "options": {
+            "project": "libs/ng/lib3/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib3/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib3/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib3"],
+          "options": {
+            "jestConfig": "libs/ng/lib3/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib3/src/**/*.ts",
+              "libs/ng/lib3/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib4": {
+      "projectType": "library",
+      "root": "libs/ng/lib4",
+      "sourceRoot": "libs/ng/lib4/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib4"],
+          "options": {
+            "project": "libs/ng/lib4/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib4/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib4/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib4"],
+          "options": {
+            "jestConfig": "libs/ng/lib4/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib4/src/**/*.ts",
+              "libs/ng/lib4/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib5": {
+      "projectType": "library",
+      "root": "libs/ng/lib5",
+      "sourceRoot": "libs/ng/lib5/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib5"],
+          "options": {
+            "project": "libs/ng/lib5/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib5/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib5/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib5"],
+          "options": {
+            "jestConfig": "libs/ng/lib5/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib5/src/**/*.ts",
+              "libs/ng/lib5/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib6": {
+      "projectType": "library",
+      "root": "libs/ng/lib6",
+      "sourceRoot": "libs/ng/lib6/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib6"],
+          "options": {
+            "project": "libs/ng/lib6/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib6/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib6/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib6"],
+          "options": {
+            "jestConfig": "libs/ng/lib6/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib6/src/**/*.ts",
+              "libs/ng/lib6/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib7": {
+      "projectType": "library",
+      "root": "libs/ng/lib7",
+      "sourceRoot": "libs/ng/lib7/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib7"],
+          "options": {
+            "project": "libs/ng/lib7/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib7/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib7/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib7"],
+          "options": {
+            "jestConfig": "libs/ng/lib7/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib7/src/**/*.ts",
+              "libs/ng/lib7/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib8": {
+      "projectType": "library",
+      "root": "libs/ng/lib8",
+      "sourceRoot": "libs/ng/lib8/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib8"],
+          "options": {
+            "project": "libs/ng/lib8/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib8/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib8/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib8"],
+          "options": {
+            "jestConfig": "libs/ng/lib8/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib8/src/**/*.ts",
+              "libs/ng/lib8/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib9": {
+      "projectType": "library",
+      "root": "libs/ng/lib9",
+      "sourceRoot": "libs/ng/lib9/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib9"],
+          "options": {
+            "project": "libs/ng/lib9/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib9/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib9/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib9"],
+          "options": {
+            "jestConfig": "libs/ng/lib9/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib9/src/**/*.ts",
+              "libs/ng/lib9/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib10": {
+      "projectType": "library",
+      "root": "libs/ng/lib10",
+      "sourceRoot": "libs/ng/lib10/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib10"],
+          "options": {
+            "project": "libs/ng/lib10/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib10/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib10/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib10"],
+          "options": {
+            "jestConfig": "libs/ng/lib10/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib10/src/**/*.ts",
+              "libs/ng/lib10/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib11": {
+      "projectType": "library",
+      "root": "libs/ng/lib11",
+      "sourceRoot": "libs/ng/lib11/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib11"],
+          "options": {
+            "project": "libs/ng/lib11/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib11/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib11/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib11"],
+          "options": {
+            "jestConfig": "libs/ng/lib11/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib11/src/**/*.ts",
+              "libs/ng/lib11/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib12": {
+      "projectType": "library",
+      "root": "libs/ng/lib12",
+      "sourceRoot": "libs/ng/lib12/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib12"],
+          "options": {
+            "project": "libs/ng/lib12/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib12/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib12/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib12"],
+          "options": {
+            "jestConfig": "libs/ng/lib12/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib12/src/**/*.ts",
+              "libs/ng/lib12/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib13": {
+      "projectType": "library",
+      "root": "libs/ng/lib13",
+      "sourceRoot": "libs/ng/lib13/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib13"],
+          "options": {
+            "project": "libs/ng/lib13/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib13/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib13/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib13"],
+          "options": {
+            "jestConfig": "libs/ng/lib13/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib13/src/**/*.ts",
+              "libs/ng/lib13/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "ng-lib14": {
+      "projectType": "library",
+      "root": "libs/ng/lib14",
+      "sourceRoot": "libs/ng/lib14/src",
+      "prefix": "nx-todo",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/ng/lib14"],
+          "options": {
+            "project": "libs/ng/lib14/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ng/lib14/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/ng/lib14/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ng/lib14"],
+          "options": {
+            "jestConfig": "libs/ng/lib14/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ng/lib14/src/**/*.ts",
+              "libs/ng/lib14/src/**/*.html"
+            ]
           }
         }
       }
